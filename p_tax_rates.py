@@ -20,6 +20,17 @@ def read_circle_rates(json_file_name='circle_rates.json'):
         data=json.load(json_file)
     return data
 
+def write_property_par(residential_dict,commercial_dict):
+    with open('presumed_annual_rent.json','w') as json_file:
+        json.dump({'residential':residential_dict,'commercial':commercial_dict},json_file)
+    return True
+    
+def read_property_par(json_file_name='presumed_annual_rent.json'):
+    with open(json_file_name , 'r') as json_file:
+        data=json.load(json_file)
+    return data
+
+
 if __name__ == '__main__':
     # rate_tax_resid =  SpecialInput.read_float_ranged('enter residential tax rates',0,100) 
     # rate_tax_commer = SpecialInput.read_float_ranged('enter commercial tax rates',0,100)
@@ -99,4 +110,9 @@ if __name__ == '__main__':
 }
 
     write_circle_rates(residential_circle_rate,commercial_circle_rate,industrial_circle_rate)
-    print(read_circle_rates())
+    data=read_circle_rates()
+    print(data['commercial']['marwad'])
+    residen_par = {'1':100,'2':50}
+    commerc_par = {'1':150,'2':80}
+    write_property_par(residential_dict=residen_par,commercial_dict=commerc_par)
+    print(read_property_par())

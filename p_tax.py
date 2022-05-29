@@ -6,11 +6,17 @@ class Property():
     tax
     """
     def __init__(self,property_name='',property_location='',property_plot_area=100,
-                 property_age=10,property_type='residential',property_class=1,
-                 property_par=0,property_construction_type='normal',
+                 property_age=10,property_type='residential',property_class='1',
+                 property_par=0,property_construction_cost=1000,
                  property_arv=0,property_tax=0,property_far=0,property_bup_area=0,circle_rates=0):
-        self.property_name = property_name        
-        self.property_location=property_location
+        data = p_tax_rates.read_circle_rates()
+        data_keys = list((data['residential']).keys())
+        self.property_name = property_name
+        if property_location !='' and property_location.lower().strip() in data_keys:
+                self.property_location=property_location
+        else:
+            self.property_location = SpecialInput.get_text_from_list('Please enter a valid location',data_keys)
+            self.property_location = self.property_location.strip().lower()
         self.property_plot_area=property_plot_area
         if property_far==0 and property_bup_area !=0:
             self.property_far = property_bup_area/property_plot_area
@@ -22,26 +28,49 @@ class Property():
         self.property_age=property_age
         self.property_type=property_type
         self.property_class=property_class
-        self.property_par=property_par
-        self.property_construction_type=property_construction_type
-        self.property_arv=property_arv
-        self.property_tax=property_tax
+        if property_par==0:
+            self.property_par=property_par
+        else:
+            self.property_par= self.get_property_par()
+        self.property_construction_cost=property_construction_cost
+        if property_arv==0:
+            self.property_arv=property_arv
+        if property_tax==0:
+            self.property_tax=self.p_tax()
         self.p_rates= self.p_rates_applicable()
         self.property_value = self.value_pty()
         if circle_rates != 0:
             self.circle_rates=circle_rates
         else:
             self.circle_rates=self.read_circle_rate()
+        
 
     def presumed_annual_rent(self):
-        pass
+        arvm = self.rent_valuation_mth()
+        arpm = self.rent_par_mth()
+        if arvm<arpm:
+            return arvm
+        else:
+            return arpm
+    
+    def get_arv(self):
+        return self.property_par * 0.9
+    
+    def get_property_par(self):
+        data= p_tax_rates.read_property_par()
+        property_par = 0
+        if self.property_type == 'residential':
+            property_par = float(data['residential'][str(self.property_class)])
+        else:
+            property_par = float(data['commercial'][str(self.property_class)])
+        return int(property_par)
     
     def value_pty(self):
-        value_property = self.property_bup_area*
-        return ()
+        value_property = (self.property_bup_area*self.property_construction_cost*self.get_multi_fac())+ self.property_plot_area*self.circle_rates
+        return (value_property)
     
     def rent_valuation_mth(self):
-        pass
+        return self.value_pty()*0.05
     
     def rent_par_mth(self):
         return float(self.property_bup_area)*int(self.property_par)
@@ -72,7 +101,7 @@ class Property():
         pass
     
     def __str__(self) -> str:
-        return(' ')
+        return(str(self.get_dict()))
     
     def __add__(self, other):
         """the property age, name of the property,property type, property class and the address will be of first object. Others"""
@@ -85,7 +114,7 @@ class Property():
                         'property_type':self.property_type,
                         'property_class':self.property_class,
                         'property_par':self.property_par+other.property_par,
-                        'property_construction_type':self.property_construction_type,
+                        'property_construction_cost':self.property_construction_cost + other.property_construction_cost,
                         'property_arv':self.property_arv+other.property_arv,'property_tax':self.property_tax+other.property_tax,}
         return new_pty_dict
     
@@ -94,14 +123,15 @@ class Property():
                 'property_plot_area':self.property_plot_area,'property_far':self.property_far,
                 'property_bup_area':self.property_bup_area,'property_age':self.property_age,
                 'property_type':self.property_type,'property_class':self.property_class,
-                'property_par':self.property_par,'property_construction_type':self.property_construction_type,
-                'property_arv':self.property_arv,'property_tax':self.property_tax,}
+                'property_par':self.property_par,'property_construction_cost':self.property_construction_cost,
+                'property_arv':self.property_arv,'property_tax':self.property_tax,
+                'value_pty':self.property_value,'circle_rates':self.circle_rates,'presumed annual rent per feet':self.property_par}
     
     def get_list(self):
         [self.property_name, self.property_location, self.property_plot_area, self.property_far,
          self.property_bup_area, 
          self.property_age, self.property_type, self.property_class, self.property_par, 
-         self.property_construction_type, self.property_arv, self.property_tax]
+         self.property_construction_cost, self.property_arv, self.property_tax]
     
     def get_multi_fac(self):
         mf=0

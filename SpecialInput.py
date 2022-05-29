@@ -273,3 +273,9 @@ def read_int_ranged(prompt, min_value, max_value):
     returns a number containing the value gettext by the user
     '''
     return read_number_ranged(prompt,int,min_value,max_value)
+
+def get_text_from_list(prompt,given_list):
+    while True:
+        text = gettext(prompt)
+        if text.lower().strip() in given_list:
+            return text
