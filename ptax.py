@@ -1,0 +1,10 @@
+land_area = input('area of land')
+far = input('far of land')
+circle_rate = input('Circle Rate')
+cost_of_construction = input('cost of construction')
+presumed_rent_per_feet =input('presumed annual rent')
+multiplication_factor = input('multiplication factor')
+value_by_valuation_method = (int(land_area) * int(circle_rate)) + (float(far)*int(land_area))*int(cost_of_construction)
+annual_rent_by_valuation_method = value_by_valuation_method * float(multiplication_factor)*0.9*0.05
+annual_rent_by_presumed_method = (float(far)*int(land_area))*int(presumed_rent_per_feet)
+print('annual rent by presumed method',annual_rent_by_presumed_method,'annual rent by valuation method',annual_rent_by_valuation_method)

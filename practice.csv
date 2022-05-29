@@ -1,0 +1,3 @@
+property_name,property_address,property_plot_area,property_far,property_bup_area,property_age,property_type,property_class,property_par,property_construction_type,property_arv,property_tax
+bung,dholar,200,0.5,100,20,commercial,1,120,superior,0,0
+shop,marwad,1000,0.5,500,30,residential,2,100,normal,0,0
