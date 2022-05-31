@@ -39,80 +39,87 @@ if __name__ == '__main__':
     print(rates['residential'])
     print(rates['commercial'])
     commercial_circle_rate ={
-        'marwad':150000,
-        'dalwada':150000,
-        'kadaiya':100000,
-        'devka':100000,
-        'bhimpore':150000,
-        'jani vankad':150000,
-        'varkund':150000,
-        'dunetha':150000,
-        'dabhel':175000,
-        'ringanwada':175000,
-        'kachigam':175000,
-        'palhit':75000,
-        'bhamti':75000,
-        'dholar':75000,
-        'damanwada':75000,
-        'pariyari':75000,
-        'patlara':75000,
-        'naila pardi':75000,
-        'deva pardi':75000,
-        'jampore':75000,
-        'patlara':75000
+        "marwad": 188764.80,
+        "dalwada": 188764.80,
+        "kadaiya": 125843.2,
+        "devka": 125843.2,
+        "bhimpore": 188764.80,
+        "jani vankad": 188764.80,
+        "varkund": 188764.80,
+        "dunetha": 188764.80,
+        "dabhel": 283147.20,
+        "ringanwada": 283147.20,
+        "kachigam": 283147.20,
+        "palhit": 125843.20,
+        "bhamti": 125843.20,
+        "dholar": 125843.20,
+        "damanwada": 125843.20,
+        "pariyari": 125843.20,
+        "patlara": 125843.20,
+        "naila pardi": 125843.20,
+        "deva pardi": 125843.20,
+        "jampore": 125843.20
     }
     residential_circle_rate ={
-        'marwad':75000,
-        'dalwada':75000,
-        'kadaiya':75000,
-        'devka':75000,
-        'bhimpore':75000,
-        'jani vankad':75000,
-        'varkund':100000,
-        'dunetha':100000,
-        'dabhel':100000,
-        'ringanwada':100000,
-        'kachigam':100000,
-        'palhit':75000,
-        'bhamti':75000,
-        'dholar':75000,
-        'damanwada':75000,
-        'pariyari':75000,
-        'patlara':75000,
-        'naila pardi':75000,
-        'deva pardi':75000,
-        'jampore':75000,
-        'patlara':75000
+        "marwad": 90956.25,
+        "dalwada": 90956.25,
+        "kadaiya": 90956.25,
+        "devka": 90956.25,
+        "bhimpore": 90956.25,
+        "jani vankad": 90956.25,
+        "varkund": 121275,
+        "dunetha": 121275,
+        "dabhel": 121275,
+        "ringanwada": 121275,
+        "kachigam": 121275,
+        "palhit": 90956.25,
+        "bhamti": 90956.25,
+        "dholar": 90956.25,
+        "damanwada": 90956.25,
+        "pariyari": 90956.25,
+        "patlara": 90956.25,
+        "naila pardi": 90956.25,
+        "deva pardi": 90956.25,
+        "jampore": 90956.25
     }
+    
 
     industrial_circle_rate ={
-    'marwad':100000,
-    'dalwada':100000,
-    'kadaiya':100000,
-    'devka':100000,
-    'bhimpore':150000,
-    'jani vankad':150000,
-    'varkund':150000,
-    'dunetha':150000,
-    'dabhel':225000,
-    'ringanwada':225000,
-    'kachigam':225000,
-    'palhit':100000,
-    'bhamti':100000,
-    'dholar':100000,
-    'damanwada':100000,
-    'pariyari':100000,
-    'patlara':100000,
-    'naila pardi':100000,
-    'deva pardi':100000,
-    'jampore':100000,
-    'patlara':100000
-}
+        "marwad": 188764.80,
+        "dalwada": 188764.80,
+        "kadaiya": 125843.2,
+        "devka": 125843.2,
+        "bhimpore": 188764.80,
+        "jani vankad": 188764.80,
+        "varkund": 188764.80,
+        "dunetha": 188764.80,
+        "dabhel": 283147.20,
+        "ringanwada": 283147.20,
+        "kachigam": 283147.20,
+        "palhit": 125843.20,
+        "bhamti": 125843.20,
+        "dholar": 125843.20,
+        "damanwada": 125843.20,
+        "pariyari": 125843.20,
+        "patlara": 125843.20,
+        "naila pardi": 125843.20,
+        "deva pardi": 125843.20,
+        "jampore": 125843.20
+    }
 
     write_circle_rates(residential_circle_rate,commercial_circle_rate,industrial_circle_rate)
-    data=read_circle_rates()
-    print(data['commercial']['marwad'])
-    residen_par = {'1':100,'2':50}
-    commerc_par = {'1':150,'2':80}
+    choice=input('Do you want to enter new data')
+    choice = SpecialInput.check_string(choice)
+    if choice:
+        r_par_1=input('please enter rates for residential class 1')
+        r_par_2=input('please enter rates for residential class 2')
+        c_par_1=input('please enter rates for commercial class 1')
+        c_par_2 =input('please enter rates for commercial class 2')
+        residen_par = {'1':r_par_1,'2':r_par_2}
+        commerc_par = {'1':c_par_1,'2':c_par_2}
+    else:
+        residen_par = {'1':100,'2':50}
+        commerc_par = {'1':150,'2':80}
+
     write_property_par(residential_dict=residen_par,commercial_dict=commerc_par)
     print(read_property_par())
